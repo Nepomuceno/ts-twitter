@@ -1,0 +1,30 @@
+{
+  "name": "ts-twitter",
+  "version": "0.1.0",
+  "description": "A simple typescript library to use with twitter",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nepomuceno/ts-twitter.git"
+  },
+  "keywords": [],
+  "author": "Gabriel Nepomuceno",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nepomuceno/ts-twitter/issues"
+  },
+  "homepage": "https://github.com/Nepomuceno/ts-twitter#readme",
+  "devDependencies": {
+    "@types/dotenv": "^4.0.3",
+    "@types/got": "^8.3.1",
+    "typescript": "^2.9.2"
+  },
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "got": "^8.3.1"
+  }
+}
