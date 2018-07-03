@@ -1,7 +1,13 @@
-language : node_js
-node_js :
- - stable
-install:
- - npm install
- script:
- - npm build
+language: node_js
+node_js:
+- 'node'
+deploy:
+  provider: npm
+  email: gabriel.bico@gmail.com
+  api_key:
+    secure: bnrBOK1pL0d2MN3lahpSRqUy605kneTENg7SnTPd+TgsJKwqAkKN/YzbyPi87lBCXesmZVzdWlStHLhRAEtWZlwzl0I5bkwfVMI9iKUYsFSmOPWcY9KFHflJG8cTyUOM32MacOs8J/nBjcdzqFKSmRR1/CIyr2l/IcQFH2PO9Q+GBiTYcgNdzQ5pfBDiw30HiYAyrTXtFE34ri0T0mdI/tDNtsyz3v27l8LcphXUoZz6Ffn4CV+gbZL/6PWN6VQFvC/6Z7zYf+P1XgFKSQD1urWfZuGKoOdA6ru95EIaTb5JqmhKtlWcKjEqVTng6yThxSLHDr2OOx4bwftPkmsmS9vnIEMPtAwmx0lP3a2Niu1GrR/xrLkQiiHtZamH2bRkaEJkhOrZzEaHHHeo3F8CHs8cKH6r+4OcpJdUfUNu97TWBoB3Tnk9AuARCYc6h0blt1eqHGYlEMOiDyX9qdg1JMs0JcojkzKfdnl4n0JAtq4xIIYZ1G455SHxaS4jqaCBhBm1ELFqL4LoyQo0zqysz327jAV5UncpvDWGDH+QC20j3OXk13hYvJ/1vyvTWCH/ifS727stqFP9Su0MnM7OK4Cg3Kmgzi7JE/WFzf1Q14agsebAMIXmXjwQ4DHuuyQlYWXZl+O8qKKGOcZSW7GZZ06qu4f2FfkBU/13SEWBjaY=
+  on:
+    tags: true
+    repo: Nepomuceno/ts-twitter
+script:
+  - npm build
