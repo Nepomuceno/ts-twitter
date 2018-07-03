@@ -1,5 +1,5 @@
 import got from "got";
-import { Tweet } from "./interfaces";
+import { Tweet, IUserTimelineOptions } from "./interfaces";
 
 export class Twitter {
   _twitter_api: string = "https://api.twitter.com/1.1/";
@@ -29,7 +29,7 @@ export class Twitter {
   }
 
   async getUserTimeline(
-    parameters: UserTimelineOptions
+    parameters: IUserTimelineOptions
   ): Promise<Array<Tweet>> {
     if (!this.access_token) {
       await this.GetOAuthToken();
@@ -69,14 +69,3 @@ export class Twitter {
   }
 }
 
-export class UserTimelineOptions {
-  user_id?: number;
-  screen_name?: string;
-  since_id?: number;
-  count?: number;
-  max_id?: number;
-  trim_user?: boolean;
-  exclude_replies?: boolean;
-  include_rts?: boolean;
-  constructor() {}
-}
