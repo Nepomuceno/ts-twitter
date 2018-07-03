@@ -1,6 +1,29 @@
 import got from "got";
 import { Tweet, IUserTimelineOptions } from "./interfaces";
 
+export {
+  IUserTimelineOptions,
+  Tweet,
+  TweetEntities,
+  Hashtag,
+  EntitiesMedia,
+  Sizes,
+  Large,
+  URL,
+  UserMention,
+  TweetExtendedEntities,
+  QuotedStatus,
+  Place,
+  Attributes,
+  BoundingBox,
+  User,
+  UserEntities,
+  Description,
+  RetweetedStatus,
+  RetweetedStatusExtendedEntities,
+  Media1
+} from "./interfaces";
+
 export class Twitter {
   _twitter_api: string = "https://api.twitter.com/1.1/";
   _oauth2_url: string = "https://api.twitter.com/oauth2/token";
@@ -35,17 +58,16 @@ export class Twitter {
       await this.GetOAuthToken();
     }
     let body = await this.getFromApi("statuses/user_timeline", parameters);
-    
+
     let content: Array<Tweet> = JSON.parse(body);
     return content;
   }
-  
+
   async GetOAuthToken(): Promise<void> {
     var userIdEncoded = Buffer.from(
       `${encodeURI(this.client_id)}:${encodeURI(this.client_secret)}`
     ).toString("base64");
     try {
-      console.log(`Basic ${userIdEncoded}`);
       let postResult = await got.post(`${this._oauth2_url}`, {
         headers: {
           Authorization: `Basic ${userIdEncoded}`,
@@ -53,10 +75,9 @@ export class Twitter {
         },
         body: "grant_type=client_credentials"
       });
-      console.log(postResult);
       this.access_token = JSON.parse(postResult.body).access_token;
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   }
 
@@ -68,4 +89,3 @@ export class Twitter {
     return result.body;
   }
 }
-
