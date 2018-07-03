@@ -10,4 +10,4 @@ deploy:
     tags: true
     repo: Nepomuceno/ts-twitter
 script:
-  - npm build
+  - npm run-script build

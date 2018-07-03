@@ -1,4 +1,4 @@
-# TS Twitter
+# TS Twitter [![Build Status](https://travis-ci.org/Nepomuceno/ts-twitter.svg?branch=master)](https://travis-ci.org/Nepomuceno/ts-twitter)
 
 An oppinionated twitter library for query (in the future interact) with twitter
 
