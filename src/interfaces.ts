@@ -159,6 +159,7 @@ export interface User {
   geo_enabled: boolean;
   verified: boolean;
   statuses_count: number;
+  status: Tweet;
   lang: string;
   contributors_enabled: boolean;
   is_translator: boolean;
@@ -238,15 +239,58 @@ export interface Media1 {
   sizes: Sizes;
 }
 
-export interface IUserTimelineOptions {
+export interface IUserTimelineOptions extends ITimelineOptions {
   user_id?: number;
   screen_name?: string;
+  include_rts?: boolean;
+}
+
+export interface IHomeTimelineOptions extends ITimelineOptions {
+  include_entities?: boolean;
+}
+
+export interface TweetSearchResult {
+  statuses: Array<Tweet>,
+}
+export interface SearchMetadata {
+  completed_in: number;
+  max_id:       number;
+  max_id_str:   string;
+  next_results: string;
+  query:        string;
+  count:        number;
+  since_id:     number;
+  since_id_str: string;
+}
+
+export interface ITimelineOptions {
   since_id?: number;
   count?: number;
   max_id?: number;
   trim_user?: boolean;
   exclude_replies?: boolean;
-  include_rts?: boolean;
+}
+
+export interface IUserLookup {
+  user_id?: number;
+  screen_name?: string;
+  include_entities?: boolean;
+}
+
+export interface ITweetSearch extends ISearch{
+  geocode?: string,
+  lan?: string,
+  locale?: string,
+  result_type?: string,
+  until?: string,
+  since_id?: string
+}
+
+export interface ISearch {
+  q: string,
+  page?: number,
+  count?: number,
+  include_entities?: boolean
 }
 
 // Converts JSON strings to/from your types

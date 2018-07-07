@@ -10,7 +10,17 @@ let twitter = new Twitter(
 twitter.getUserTimeline({ screen_name: "similola", exclude_replies: false, count: 3000 })
   .then(t => {
     console.log(t.length);
-    t.forEach(v => {
-      console.info(v.text);
-    });
   }) ;
+
+twitter.searchTweets({q:"@gbico"})
+  .then(t => {
+    console.info(t);
+  })
+  .catch(e => {
+    console.info(e);
+  })
+
+  twitter.GetOAuthToken()
+  .then(t => {
+    console.log(t);
+  });

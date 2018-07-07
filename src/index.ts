@@ -1,8 +1,12 @@
 import got from "got";
-import { Tweet, IUserTimelineOptions } from "./interfaces";
+import { Tweet, IUserTimelineOptions, User, IUserLookup, TweetSearchResult, ITweetSearch } from "./interfaces";
 
 export {
   IUserTimelineOptions,
+  ITweetSearch,
+  ITimelineOptions,
+  IHomeTimelineOptions,
+  IUserLookup,
   Tweet,
   TweetEntities,
   Hashtag,
@@ -21,7 +25,10 @@ export {
   Description,
   RetweetedStatus,
   RetweetedStatusExtendedEntities,
-  Media1
+  Media1,
+  TweetSearchResult,
+  SearchMetadata,
+  
 } from "./interfaces";
 
 export class Twitter {
@@ -51,6 +58,22 @@ export class Twitter {
     } else this.GetOAuthToken();
   }
 
+  /**
+   * Get any array of twwets based in an api call
+   * You can pass query parameters ad the parameters argument
+   * @param url
+   * @param parameters
+   */
+  async getTweetsFromApi(url: string, parameters: any): Promise<Array<Tweet>> {
+    if (!this.access_token) {
+      await this.GetOAuthToken();
+    }
+    let body = await this.getFromApi(url, parameters);
+
+    let content: Array<Tweet> = JSON.parse(body);
+    return content;
+  }
+
   async getUserTimeline(
     parameters: IUserTimelineOptions
   ): Promise<Array<Tweet>> {
@@ -63,7 +86,38 @@ export class Twitter {
     return content;
   }
 
-  async GetOAuthToken(): Promise<void> {
+  async getUsersLookup(parameters: IUserLookup): Promise<Array<User>> {
+    if (!this.access_token) {
+      await this.GetOAuthToken();
+    }
+    let body = await this.getFromApi("users/lookup", parameters);
+    let content: Array<User> = JSON.parse(body);
+    return content;
+  }
+
+  async getUser(parameters: IUserLookup): Promise<User> {
+    if (!this.access_token) {
+      await this.GetOAuthToken();
+    }
+    let body = await this.getFromApi("users/show", parameters);
+    let content: User = JSON.parse(body);
+    return content;
+  }
+
+  async searchTweets(parameters: ITweetSearch): Promise<TweetSearchResult>
+  {
+    if (!this.access_token) {
+      await this.GetOAuthToken();
+    }
+    const url = "search/tweets";
+    let body = await this.getFromApi(url, parameters);
+    let content: TweetSearchResult = JSON.parse(body);
+    return content;
+  }
+
+  
+
+  async GetOAuthToken(): Promise<string | undefined> {
     var userIdEncoded = Buffer.from(
       `${encodeURI(this.client_id)}:${encodeURI(this.client_secret)}`
     ).toString("base64");
@@ -76,6 +130,7 @@ export class Twitter {
         body: "grant_type=client_credentials"
       });
       this.access_token = JSON.parse(postResult.body).access_token;
+      return this.access_token;
     } catch (err) {
       throw err;
     }
