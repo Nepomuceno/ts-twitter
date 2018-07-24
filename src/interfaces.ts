@@ -265,9 +265,9 @@ export interface SearchMetadata extends IBaseApiCall {
 }
 
 export interface ITimelineOptions extends IBaseApiCall {
-  since_id?: number;
+  since_id?: string;
   count?: number;
-  max_id?: number;
+  max_id?: string;
   trim_user?: boolean;
   exclude_replies?: boolean;
 }
