@@ -85,6 +85,17 @@ export class Twitter {
     let content: Array<Tweet> = JSON.parse(body);
     return content;
   }
+  async getStatusesShow(
+    parameters: any
+  ): Promise<Array<Tweet>> {
+    if (!this.access_token) {
+      await this.GetOAuthToken();
+    }
+    let body = await this.getFromApi("statuses/show", parameters);
+
+    let content: Array<Tweet> = JSON.parse(body);
+    return content;
+  }
 
   async getUsersLookup(parameters: IUserLookup): Promise<Array<User>> {
     if (!this.access_token) {
