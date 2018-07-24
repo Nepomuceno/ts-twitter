@@ -3,6 +3,7 @@ export interface Tweet {
   id: number;
   id_str: string;
   text: string;
+  full_text: string;
   truncated: boolean;
   entities: TweetEntities;
   source: string;
@@ -250,20 +251,20 @@ export interface IHomeTimelineOptions extends ITimelineOptions {
 }
 
 export interface TweetSearchResult {
-  statuses: Array<Tweet>,
+  statuses: Array<Tweet>;
 }
-export interface SearchMetadata {
+export interface SearchMetadata extends IBaseApiCall {
   completed_in: number;
-  max_id:       number;
-  max_id_str:   string;
+  max_id: number;
+  max_id_str: string;
   next_results: string;
-  query:        string;
-  count:        number;
-  since_id:     number;
+  query: string;
+  count: number;
+  since_id: number;
   since_id_str: string;
 }
 
-export interface ITimelineOptions {
+export interface ITimelineOptions extends IBaseApiCall {
   since_id?: number;
   count?: number;
   max_id?: number;
@@ -271,26 +272,30 @@ export interface ITimelineOptions {
   exclude_replies?: boolean;
 }
 
-export interface IUserLookup {
+export interface IUserLookup extends IBaseApiCall {
   user_id?: number;
   screen_name?: string;
   include_entities?: boolean;
 }
 
-export interface ITweetSearch extends ISearch{
-  geocode?: string,
-  lan?: string,
-  locale?: string,
-  result_type?: string,
-  until?: string,
-  since_id?: string
+export interface ITweetSearch extends ISearch {
+  geocode?: string;
+  lan?: string;
+  locale?: string;
+  result_type?: string;
+  until?: string;
+  since_id?: string;
 }
 
-export interface ISearch {
-  q: string,
-  page?: number,
-  count?: number,
-  include_entities?: boolean
+export interface ISearch extends IBaseApiCall {
+  q: string;
+  page?: number;
+  count?: number;
+  include_entities?: boolean;
+}
+
+export interface IBaseApiCall {
+  tweet_mode?: string;
 }
 
 // Converts JSON strings to/from your types
