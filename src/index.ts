@@ -1,5 +1,5 @@
 import got from "got";
-import { Tweet, IUserTimelineOptions } from "./interfaces";
+import { Tweet, IUserTimelineOptions, IStatusShowParameter } from "./interfaces";
 
 export {
   IUserTimelineOptions,
@@ -21,7 +21,8 @@ export {
   Description,
   RetweetedStatus,
   RetweetedStatusExtendedEntities,
-  Media1
+  Media1,
+  IStatusShowParameter
 } from "./interfaces";
 
 export class Twitter {
@@ -58,6 +59,17 @@ export class Twitter {
       await this.GetOAuthToken();
     }
     let body = await this.getFromApi("statuses/user_timeline", parameters);
+
+    let content: Array<Tweet> = JSON.parse(body);
+    return content;
+  }
+  async getStatusesShow(
+    parameters: IStatusShowParameter
+  ): Promise<Array<Tweet>> {
+    if (!this.access_token) {
+      await this.GetOAuthToken();
+    }
+    let body = await this.getFromApi("statuses/show", parameters);
 
     let content: Array<Tweet> = JSON.parse(body);
     return content;

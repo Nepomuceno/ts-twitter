@@ -237,7 +237,15 @@ export interface Media1 {
   type: string;
   sizes: Sizes;
 }
-
+export interface IStatusShowParameter {
+  id: string;
+  trim_user?: boolean;
+  include_my_retweet?: boolean;
+  include_entities?: boolean;
+  include_ext_alt_text?: boolean;
+  include_card_ui?: boolean;
+  tweet_mode?: string;
+}
 export interface IUserTimelineOptions {
   user_id?: number;
   screen_name?: string;
@@ -247,6 +255,7 @@ export interface IUserTimelineOptions {
   trim_user?: boolean;
   exclude_replies?: boolean;
   include_rts?: boolean;
+  tweet_mode?: string;
 }
 
 // Converts JSON strings to/from your types
